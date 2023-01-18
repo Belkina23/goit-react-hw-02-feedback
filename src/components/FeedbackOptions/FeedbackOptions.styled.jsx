@@ -23,7 +23,7 @@ const Button = styled.button`
 }
 
     :not(:last-child) {
-  margin-right: 10px;
+  margin-right: 15px;
 
 
 }
