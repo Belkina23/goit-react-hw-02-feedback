@@ -1,8 +1,10 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import Container from './Container';
+import Section from './Section';
 import FeedbackOptions from './FeedbackOptions';
+import Statistics from './Statistics';
+import Notification from './Notification';
 
 class App extends Component {
   state = {
@@ -30,9 +32,26 @@ class App extends Component {
     const { good, neutral, bad } = this.state;
     return (
       <Container>
-        <h1 className="Title">Please leave fedback</h1>
-        <FeedbackOptions options={Object.keys(this.state)}
-            onLeaveFeedback={this.addFeedback} />
+        <Section title="Please leave fedback">
+          <FeedbackOptions
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.addFeedback}
+          />
+        </Section>
+
+        <Section title="Statistics">
+        {this.countTotalFeedback() ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          ) : (
+            <Notification message="No feedback given" />
+          )}
+        </Section>
       </Container>
     );
   }
